@@ -63,7 +63,7 @@ def project_build(repository, circle_token="", branch=None):
 def default_branch(repository):
     url = f"https://api.github.com/repos/{repository}"
     response = requests.get(url, params={"access_token": GITHUB_TOKEN})
-    info = f"{repository} not found"
+    info = f"{repository} not found:"+response.url
     assert response.status_code == 200, info
     data = response.json()
     return data['default_branch']
