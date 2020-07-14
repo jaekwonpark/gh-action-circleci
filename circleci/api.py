@@ -2,15 +2,17 @@ import urllib.parse
 
 import pandas as pd
 import requests
+import os
 
 CIRCLE_API = "https://circleci.canaveral-corp.us-west-2.aws/api/v1.1"
+GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
 
 
 def latest_commit(repository, branch=None):
     if branch is None:
         branch = default_branch(repository)
     url = f"https://api.github.com/repos/{repository}/commits"
-    response = requests.get(url, params={"sha": branch})
+    response = requests.get(url, params={"sha": branch, "access_token": GITHUB_TOKEN})
     info = "%s (%s)" % (response.reason, response.status_code)
     assert response.status_code == 200, info
     json = response.json()
@@ -60,7 +62,7 @@ def project_build(repository, circle_token="", branch=None):
 
 def default_branch(repository):
     url = f"https://api.github.com/repos/{repository}"
-    response = requests.get(url)
+    response = requests.get(url, params={"access_token": GITHUB_TOKEN})
     info = f"{repository} not found"
     assert response.status_code == 200, info
     data = response.json()
