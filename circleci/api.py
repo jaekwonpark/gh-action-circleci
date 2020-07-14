@@ -3,7 +3,7 @@ import urllib.parse
 import pandas as pd
 import requests
 
-CIRCLE_API = "https://circleci.com/api/v1.1"
+CIRCLE_API = "https://circleci.canaveral-corp.us-west-2.aws/api/v1.1"
 
 
 def latest_commit(repository, branch=None):
