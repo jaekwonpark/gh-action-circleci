@@ -47,9 +47,9 @@ def latest_workflow(repository, circle_token="", status="completed",
     return workflow
 
 
-def project_build(repository, circle_token="", branch=None):
+def project_build(repository, github_token="", circle_token="", branch=None):
     if branch is None:
-        branch = default_branch(repository)
+        branch = default_branch(repository, github_token)
     # CircleCI API requires url-encoded branch
     branch = urllib.parse.quote_plus(branch)
     url = CIRCLE_API
@@ -60,9 +60,9 @@ def project_build(repository, circle_token="", branch=None):
     return response.json()["body"]
 
 
-def default_branch(repository):
+def default_branch(repository, github_token):
     url = f"https://api.github.com/repos/{repository}"
-    response = requests.get(url, params={"access_token": GITHUB_TOKEN})
+    response = requests.get(url, params={"access_token": github_token})
     info = f"{repository} not found:"+response.url
     assert response.status_code == 200, info
     data = response.json()

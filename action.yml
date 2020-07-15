@@ -14,6 +14,9 @@ inputs:
     description: "A personal API token to access the CircleCI API."
     required: false
     default: ""
+  github-token:
+    description: "Github token"
+    required: false
 runs:
   using: "docker"
   image: "Dockerfile"
@@ -24,3 +27,5 @@ runs:
     - ${{ inputs.recent }}
     - --circle-token
     - ${{ inputs.circle-token }}
+    - --github-token
+    - ${{ inputs.github-token }}
