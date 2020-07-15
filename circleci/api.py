@@ -61,11 +61,12 @@ def project_build(repository, github_token="", circle_token="", branch=None):
     userPass = circle_token+":"
     userPassBytes = userPass.encode("ascii")
     b64Val = base64.b64encode(userPassBytes)
+    strVal = b64Val.decode("utf-8")
     print("auth header:%s"% userPass)
-    print("base64:%s"% b64Val)
+    print("base64:%s"% strVal)
     print("url:%s"% url)
     headers = {
-      "Authorization": "Basic %s" % b64Val,
+      "Authorization": "Basic %s" % strVal,
       "Content-Type": "application/json",
       "Accept": "application/json"
     }
