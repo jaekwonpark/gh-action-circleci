@@ -69,6 +69,7 @@ def project_build(repository, github_token="", circle_token="", branch=None):
       "Content-Type": "application/json",
       "Accept": "application/json"
     }
+    print("headers:%s"% headers)
     response = requests.post(url,
             headers=headers,
             data={})
