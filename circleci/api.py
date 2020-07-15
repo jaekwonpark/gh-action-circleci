@@ -58,7 +58,7 @@ def project_build(repository, github_token="", circle_token="", branch=None):
     url = CIRCLE_API
     url += f"/project/github/{repository}/tree/"+branch
 
-    userPass = circle_token":"
+    userPass = circle_token+":"
     userPassBytes = userPass.encode("ascii")
     b64Val = base64.b64encode(userPassBytes)
     print("auth header:%s"% userPass)
