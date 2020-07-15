@@ -1,7 +1,7 @@
 import urllib.parse
 
 import pandas as pd
-import requests
+import requests, base64
 import os
 
 CIRCLE_API = "https://circleci.canaveral-corp.us-west-2.aws/api/v1.1"
