@@ -48,6 +48,28 @@ def latest_workflow(repository, circle_token="", status="completed",
 
 
 def project_build(repository, github_token="", circle_token="", branch=None):
+    """
+    if branch is None:
+        branch = default_branch(repository, github_token)
+    # CircleCI API requires url-encoded branch
+    branch = urllib.parse.quote_plus(branch)
+    """
+    branch = "develop"
+    url = CIRCLE_API
+    url += f"/project/github/{repository}/tree/"+branch
+
+    userPass = "{circle_token}:"
+    b64Val = base64.b64encode(userPass)
+    response = requests.post(url,
+            headers={"Authorization": "Basic %s" % b64Val},
+            data={})
+    info = "%s (%s)" % (response.reason, response.status_code)
+    assert response.status_code == 200, info
+    return response.json()["body"]
+
+"""
+
+def project_build(repository, github_token="", circle_token="", branch=None):
     if branch is None:
         branch = default_branch(repository, github_token)
     # CircleCI API requires url-encoded branch
@@ -58,7 +80,7 @@ def project_build(repository, github_token="", circle_token="", branch=None):
     info = "%s (%s)" % (response.reason, response.status_code)
     assert response.status_code == 200, info
     return response.json()["body"]
-
+"""
 
 def default_branch(repository, github_token):
     url = f"https://api.github.com/repos/{repository}"
