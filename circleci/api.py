@@ -59,11 +59,12 @@ def project_build(repository, github_token="", circle_token="", branch=None):
     url += f"/project/github/{repository}/tree/"+branch
 
     userPass = "{circle_token}:"
+    userPassBytes = userPass.encode("ascii")
     b64Val = base64.b64encode(userPass)
     response = requests.post(url,
             headers={"Authorization": "Basic %s" % b64Val},
             data={})
-    info = "%s (%s)" % (response.reason, response.status_code)
+    info = "%s %s (%s)" % (userPass, response.reason, response.status_code)
     assert response.status_code == 200, info
     return response.json()["body"]
 
