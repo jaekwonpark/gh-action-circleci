@@ -4,7 +4,8 @@ import pandas as pd
 import requests, base64
 import os
 
-CIRCLE_API = "https://circleci.canaveral-corp.us-west-2.aws/api/v1.1"
+#CIRCLE_API = "https://circleci.canaveral-corp.us-west-2.aws/api/v1.1"
+CIRCLE_API = "https://10.192.4.39/api/v1.1"
 GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
 
 
