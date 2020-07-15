@@ -58,14 +58,19 @@ def project_build(repository, github_token="", circle_token="", branch=None):
     url = CIRCLE_API
     url += f"/project/github/{repository}/tree/"+branch
 
-    userPass = "{circle_token}:"
+    userPass = circle_token":"
     userPassBytes = userPass.encode("ascii")
     b64Val = base64.b64encode(userPassBytes)
     print("auth header:%s"% userPass)
     print("base64:%s"% b64Val)
     print("url:%s"% url)
+    headers = {
+      "Authorization": "Basic %s" % b64Val,
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    }
     response = requests.post(url,
-            headers={"Authorization": "Basic %s" % b64Val},
+            headers=headers,
             data={})
     info = "%s %s (%s)" % (userPass, response.reason, response.status_code)
     assert response.status_code == 200, info
