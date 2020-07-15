@@ -61,6 +61,9 @@ def project_build(repository, github_token="", circle_token="", branch=None):
     userPass = "{circle_token}:"
     userPassBytes = userPass.encode("ascii")
     b64Val = base64.b64encode(userPassBytes)
+    print("auth header:%s"% userPass)
+    print("base64:%s"% b64Val)
+    print("url:%s"% url)
     response = requests.post(url,
             headers={"Authorization": "Basic %s" % b64Val},
             data={})
